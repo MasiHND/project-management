@@ -1,11 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { FaGear, FaMagnifyingGlass } from "react-icons/fa6";
+import { useAppDispatch, useAppSelector } from "@/app/Redux";
+import { setIsSidebarCollapsed } from "@/state";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+  const isSidebarCollapsed = useAppSelector(
+    (state) => state.global.isSidebarCollapsed,
+  ); 
+
   return (
     <div className="flex items-center justify-between bg-white px-4 py-3 dark:bg-black">
       <div className="flex items-center gap-8">
+        {!isSidebarCollapsed ? null : <button onClick={()=> dispatch(setIsSidebarCollapsed(!isSidebarCollapsed))}></button>  }
         <div className="relative flex h-min w-[200px]">
           <FaMagnifyingGlass className="absolute left-[4px] top-1/2 mr-2 h-5 w-5 -translate-y-1/2 transform cursor-pointer dark:text-white" />
           <input
